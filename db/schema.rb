@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151025144106) do
+ActiveRecord::Schema.define(version: 20151026000348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "areas", force: :cascade do |t|
     t.string "name"
@@ -44,6 +45,20 @@ ActiveRecord::Schema.define(version: 20151025144106) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "parent_id"
+  end
+
+  create_table "tin_opener_data_sets", force: :cascade do |t|
+    t.string   "name"
+    t.hstore   "headers"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tin_opener_records", force: :cascade do |t|
+    t.hstore   "row_data"
+    t.integer  "data_set_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end
